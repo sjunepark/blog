@@ -60,7 +60,7 @@ export default {
       md: "calc(var(--radius) - 2px)",
       sm: "calc(var(--radius) - 4px)",
     },
-    typography: (/** @type {any} */ theme) => ({
+    typography: (/** @type {any} */ _theme) => ({
       DEFAULT: {
         css: {
           "blockquote p:first-of-type::before": {

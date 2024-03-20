@@ -3,8 +3,9 @@
   import { cn } from "@lib/utils";
   // noinspection ES6UnusedImports
   import ThemeIcon from "@components/ThemeIcon.svelte";
+  // noinspection ES6UnusedImports
   import * as Popover from "@components/shadcn/ui/popover";
-  import { Button, buttonVariants } from "@components/shadcn/ui/button";
+  import { buttonVariants } from "@components/shadcn/ui/button";
 
   const { variant, size } = buttonVariants.variants;
 </script>
