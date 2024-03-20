@@ -5,6 +5,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:svelte/recommended",
+    "plugin:astro/recommended",
     "prettier",
   ],
   parser: "@typescript-eslint/parser",
@@ -31,6 +32,18 @@ module.exports = {
       files: ["src/env.d.ts"],
       rules: {
         "@typescript-eslint/triple-slash-reference": "off",
+      },
+    },
+    {
+      files: ["*.astro"],
+      parser: "astro-eslint-parser",
+      parserOptions: {
+        parser: "@typescript-eslint/parser",
+        extraFileExtensions: [".astro"],
+      },
+      rules: {
+        // override/add rules settings here, such as:
+        // "astro/no-set-html-directive": "error"
       },
     },
   ],
