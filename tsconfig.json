@@ -15,5 +15,6 @@
     ],
     "sourceMap": true,
     "strictNullChecks": true
-  }
+  },
+  "exclude": ["node_modules"]
 }

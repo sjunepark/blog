@@ -4,6 +4,7 @@
   import Check from "svelte-radix/Check.svelte";
 
   type $$Props = DropdownMenuPrimitive.CheckboxItemProps;
+  type $$Events = DropdownMenuPrimitive.CheckboxItemEvents;
 
   let className: $$Props["class"] = undefined;
   export let checked: $$Props["checked"] = undefined;

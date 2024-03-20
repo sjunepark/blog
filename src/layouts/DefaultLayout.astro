@@ -20,11 +20,32 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
       >
         <div class="w-full bg-background ring-1 ring-border"></div>
       </div>
-      <Header />
+      <Header client:load />
       <main>
         <slot />
       </main>
       <Footer />
     </div>
+    <script is:inline>
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+      window.localStorage.setItem("theme", theme ?? "light");
+    </script>
   </body>
 </html>

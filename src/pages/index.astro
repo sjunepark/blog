@@ -3,19 +3,11 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.svelte";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import Counter from "@components/Counter.svelte";
+import DefaultLayout from "../layouts/DefaultLayout.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header />
-    <main>
-      <p>Home, 안녕하세요!</p>
-      <p class="font-serif">Home, 안녕하세요!</p>
-    </main>
-    <Footer />
-  </body>
-</html>
+<DefaultLayout>
+  <p>Home, 안녕하세요!</p>
+  <p class="font-serif">Home, 안녕하세요!</p>
+</DefaultLayout>
