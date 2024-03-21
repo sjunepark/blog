@@ -1,22 +1,9 @@
 <script lang="ts">
-  import { Button } from "@components/shadcn/ui/button";
-
-  let theme: "light" | "dark" = "light";
-
-  const toggleTheme = () => {
-    theme = theme === "light" ? "dark" : "light";
-    localStorage.setItem("theme", theme);
-    if (document) {
-      if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  };
+  import { Button } from "@components/ui/button";
+  import { toggleMode } from "mode-watcher";
 </script>
 
-<Button on:click={toggleTheme} variant="outline" size="icon">
+<Button on:click={toggleMode} variant="icon" size="icon">
   <svg
     viewBox="0 0 15 15"
     xmlns="http://www.w3.org/2000/svg"

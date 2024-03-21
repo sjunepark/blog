@@ -1,0 +1,36 @@
+---
+import ThemeIcon from "@components/ThemeIcon.svelte";
+import HeaderLink from "@components/defaultLayout/HeaderLink.svelte";
+
+const { pathname } = Astro.url;
+---
+
+<header
+  class="sticky top-0 z-50 w-full flex-none bg-gradient-to-b from-background from-65% via-background/30 via-90% px-4 pb-12 pt-6 sm:px-8 md:px-12 md:pb-16"
+>
+  <div
+    class="mx-auto flex max-w-screen-lg items-center justify-end gap-4 sm:justify-center"
+  >
+    <div class="flex flex-1">Home</div>
+    <!--MobileNavigation-->
+    <!--todo-->
+
+    <!--DesktopNavigation-->
+    <nav class="hidden sm:block">
+      <ul
+        class="rounded-full flex px-3 font-medium shadow-md shadow-border ring-1 ring-border"
+      >
+        <li>
+          <HeaderLink href="/" {pathname} client:load>Home</HeaderLink>
+        </li>
+        <li>
+          <HeaderLink href="/posts" {pathname} client:load>Posts</HeaderLink>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="flex flex-1 justify-end">
+      <ThemeIcon client:load />
+    </div>
+  </div>
+</header>
