@@ -1,6 +1,37 @@
 <script lang="ts">
   import { Button } from "@components/ui/button";
-  import { toggleMode } from "mode-watcher";
+  import { onMount } from "svelte";
+
+  let isMounted = false;
+  let theme: "light" | "dark";
+
+  onMount(() => {
+    isMounted = true;
+    theme = localStorage.getItem("theme") as "light" | "dark";
+    updateColorScheme();
+  });
+
+  $: if (isMounted) {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      updateColorScheme();
+    } else {
+      document.documentElement.classList.remove("dark");
+      updateColorScheme();
+    }
+  }
+
+  $: if (isMounted) localStorage.setItem("theme", theme);
+
+  const toggleMode = () => {
+    console.log("clicked, theme:", theme);
+    theme = theme === "light" ? "dark" : "light";
+    updateColorScheme();
+  };
+
+  const updateColorScheme = () => {
+    document.documentElement.style.colorScheme = theme;
+  };
 </script>
 
 <Button on:click={toggleMode} variant="icon" size="icon">

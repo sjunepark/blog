@@ -1,7 +1,7 @@
 <script lang="ts">
   import { cn } from "@lib/utils.ts";
 
-  let className: string;
+  let className: string = "";
   export { className as class };
   export let pathname: string;
   export let href: string;
