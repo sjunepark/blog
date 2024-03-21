@@ -2,13 +2,13 @@
 import { format } from "@formkit/tempo";
 import type { CollectionEntry } from "astro:content";
 
-type Post = CollectionEntry<"blog">["data"];
-type Slug = CollectionEntry<"blog">["slug"];
-interface Props extends Pick<Post, "title" | "description" | "pubDate"> {
-  slug: Slug;
+interface Props {
+  post: CollectionEntry<"blog">;
 }
 
-const { pubDate, description, title, slug } = Astro.props;
+const { post } = Astro.props;
+const { data, slug } = post;
+const { title, description, pubDate } = data;
 
 const maxLength = 200;
 
