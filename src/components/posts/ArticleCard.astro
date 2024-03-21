@@ -3,9 +3,10 @@ import { format } from "@formkit/tempo";
 import type { CollectionEntry } from "astro:content";
 
 type Post = CollectionEntry<"blog">["data"];
-interface Props extends Pick<Post, "title" | "description" | "pubDate"> {}
+type Slug = CollectionEntry<"blog">["slug"];
+interface Props extends Pick<Post, "title" | "description" | "pubDate">, Slug {}
 
-const { pubDate, description, title } = Astro.props;
+const { pubDate, description, title, slug } = Astro.props;
 
 const maxLength = 200;
 
@@ -33,7 +34,7 @@ const getTimeTagDate = (date: Date) => {
         class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-accent opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 sm:rounded-lg"
       >
       </div>
-      <a href={`/posts/{post.slug}`}>
+      <a href={`/posts/${slug}`}>
         <span
           class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
         ></span>

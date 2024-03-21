@@ -17,6 +17,7 @@ const posts = (await getCollection("blog")).sort(
             title={post.data.title}
             pubDate={post.data.pubDate}
             description={post.data.description}
+            slug={post.slug}
           />
         ))
       }
