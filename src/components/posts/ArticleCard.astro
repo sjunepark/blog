@@ -4,7 +4,9 @@ import type { CollectionEntry } from "astro:content";
 
 type Post = CollectionEntry<"blog">["data"];
 type Slug = CollectionEntry<"blog">["slug"];
-interface Props extends Pick<Post, "title" | "description" | "pubDate">, Slug {}
+interface Props extends Pick<Post, "title" | "description" | "pubDate"> {
+  slug: Slug;
+}
 
 const { pubDate, description, title, slug } = Astro.props;
 
