@@ -1,8 +1,8 @@
 <script lang="ts">
   // noinspection ES6UnusedImports
   import { Button as ButtonPrimitive } from "bits-ui";
-  import { cn } from "@lib/utils";
-  import { buttonVariants, type Props } from ".";
+  import { cn } from "@lib/utils.ts";
+  import { buttonVariants, type Props } from "./index.ts";
 
   type $$Props = Props;
 

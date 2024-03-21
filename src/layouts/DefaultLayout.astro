@@ -1,7 +1,7 @@
 ---
 import Footer from "@components/defaultLayout/Footer.astro";
 import BaseHead from "@components/defaultLayout/BaseHead.astro";
-import Header from "@components/Header.svelte";
+import Header from "@components/Header.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 ---
 
@@ -9,23 +9,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 <html lang="en" class="h-full">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body class="h-full">
-    <div
-      class="relative mx-auto flex min-h-full w-full min-w-[320px] max-w-7xl flex-col px-4 sm:px-8 md:px-12"
-    >
-      <!-- Background -->
-      <div
-        class="absolute inset-0 -z-50 mx-auto flex w-full justify-center px-4 sm:px-8 md:px-12"
-      >
-        <div class="w-full bg-background ring-1 ring-border"></div>
-      </div>
-      <Header client:load />
-      <main>
-        <slot />
-      </main>
-      <Footer />
-    </div>
     <script is:inline>
       const theme = (() => {
         if (
@@ -40,12 +23,35 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
         return "light";
       })();
 
+      const updateColorScheme = () => {
+        document.documentElement.style.colorScheme = theme;
+      };
+
       if (theme === "light") {
         document.documentElement.classList.remove("dark");
+        updateColorScheme();
       } else {
         document.documentElement.classList.add("dark");
+        updateColorScheme();
       }
-      window.localStorage.setItem("theme", theme ?? "light");
+      window.localStorage.setItem("theme", theme);
     </script>
+  </head>
+  <body class="h-full">
+    <div
+      class="relative mx-auto flex min-h-full w-full min-w-[320px] max-w-7xl flex-col px-4 sm:px-8 md:px-12"
+    >
+      <!-- Background -->
+      <div
+        class="absolute inset-0 -z-50 mx-auto flex w-full justify-center px-4 sm:px-8 md:px-12"
+      >
+        <div class="w-full bg-background ring-1 ring-border"></div>
+      </div>
+      <Header />
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>

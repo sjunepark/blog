@@ -1,22 +1,40 @@
 <script lang="ts">
-  import { Button } from "@components/shadcn/ui/button";
+  import { Button } from "@components/ui/button";
+  import { onMount } from "svelte";
 
-  let theme: "light" | "dark" = "light";
+  let isMounted = false;
+  let theme: "light" | "dark";
 
-  const toggleTheme = () => {
-    theme = theme === "light" ? "dark" : "light";
-    localStorage.setItem("theme", theme);
-    if (document) {
-      if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+  onMount(() => {
+    isMounted = true;
+    theme = localStorage.getItem("theme") as "light" | "dark";
+    updateColorScheme();
+  });
+
+  $: if (isMounted) {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      updateColorScheme();
+    } else {
+      document.documentElement.classList.remove("dark");
+      updateColorScheme();
     }
+  }
+
+  $: if (isMounted) localStorage.setItem("theme", theme);
+
+  const toggleMode = () => {
+    console.log("clicked, theme:", theme);
+    theme = theme === "light" ? "dark" : "light";
+    updateColorScheme();
+  };
+
+  const updateColorScheme = () => {
+    document.documentElement.style.colorScheme = theme;
   };
 </script>
 
-<Button on:click={toggleTheme} variant="outline" size="icon">
+<Button on:click={toggleMode} variant="icon" size="icon">
   <svg
     viewBox="0 0 15 15"
     xmlns="http://www.w3.org/2000/svg"
