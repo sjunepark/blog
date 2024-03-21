@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import BlogPost from "@layouts/BlogPost.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog");
@@ -15,9 +15,28 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 // type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
+const { pubDate, title } = post.data;
 const { Content } = await post.render();
 ---
 
-<BlogPost {...post.data}>
-  <Content />
-</BlogPost>
+<DefaultLayout>
+  <!--todo: overwrite head-->
+  <article
+    class="prose prose-stone mx-auto w-full dark:prose-invert lg:prose-lg"
+  >
+    <!-- Title -->
+    <hgroup>
+      <h1>{title}</h1>
+      <p>Published at {pubDate}</p>
+    </hgroup>
+
+    <!-- Tags -->
+    <!--todo-->
+    <div class=""></div>
+
+    <!-- Post -->
+    <div class="">
+      <Content />
+    </div>
+  </article>
+</DefaultLayout>
