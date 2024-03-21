@@ -1,4 +1,6 @@
 ---
+// noinspection ES6UnusedImports
+import { fade, ViewTransitions } from "astro:transitions";
 import Footer from "@components/defaultLayout/Footer.astro";
 import BaseHead from "@components/defaultLayout/BaseHead.astro";
 import Header from "@components/Header.astro";
@@ -9,32 +11,40 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 <html lang="en" class="h-full">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <ViewTransitions />
     <script is:inline>
-      const theme = (() => {
-        if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme");
-        }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
-        }
-        return "light";
-      })();
+      const setTheme = () => {
+        const theme = (() => {
+          if (
+            typeof localStorage !== "undefined" &&
+            localStorage.getItem("theme")
+          ) {
+            return localStorage.getItem("theme");
+          }
+          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            return "dark";
+          }
+          return "light";
+        })();
 
-      const updateColorScheme = () => {
-        document.documentElement.style.colorScheme = theme ?? "light";
+        if (theme === "light") {
+          document.documentElement.classList.remove("dark");
+        } else {
+          document.documentElement.classList.add("dark");
+        }
+
+        const updateColorScheme = () => {
+          document.documentElement.style.colorScheme = theme ?? "light";
+        };
+
+        updateColorScheme();
+
+        window.localStorage.setItem("theme", theme || "light");
       };
 
-      if (theme === "light") {
-        document.documentElement.classList.remove("dark");
-        updateColorScheme();
-      } else {
-        document.documentElement.classList.add("dark");
-        updateColorScheme();
-      }
-      window.localStorage.setItem("theme", theme ?? "light");
+      setTheme();
+
+      document.addEventListener("astro:after-swap", setTheme);
     </script>
   </head>
   <body class="h-full">
@@ -48,7 +58,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
         <div class="w-full bg-background ring-1 ring-border"></div>
       </div>
       <Header />
-      <main class="mx-auto flex w-full flex-1 flex-col px-4 sm:px-8 md:px-12">
+      <!--suppress XmlUnboundNsPrefix -->
+      <main
+        class="mx-auto flex w-full flex-1 flex-col px-4 sm:px-8 md:px-12"
+        transition:animate={fade({ duration: "0.2s" })}
+      >
         <slot />
       </main>
       <Footer />
