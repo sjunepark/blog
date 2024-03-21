@@ -35,6 +35,9 @@ dependencies:
   '@fontsource-variable/noto-sans-kr':
     specifier: ^5.0.5
     version: 5.0.5
+  '@formkit/tempo':
+    specifier: ^0.0.17
+    version: 0.0.17
   astro:
     specifier: ^4.5.7
     version: 4.5.7(typescript@5.4.3)
@@ -835,6 +838,10 @@ packages:
 
   /@fontsource-variable/noto-sans-kr@5.0.5:
     resolution: {integrity: sha512-RGwy/mMP9tIJDpVslAdQGnIukDsSm4ojck1KwwKYMZUrDwN/CPC4sWXn/4oMdcYa5C1+aIlbuqKT6rQqozrkyw==}
+    dev: false
+
+  /@formkit/tempo@0.0.17:
+    resolution: {integrity: sha512-2gZE6oxp3dK6HigiKWclbCigmQGrbDTHIYe3D12T88RCorRznet2bpr7/wESBi6JFtSb0Y0NTnLvg6nfAcHERg==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.14:

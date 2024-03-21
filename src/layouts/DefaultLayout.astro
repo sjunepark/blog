@@ -24,7 +24,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
       })();
 
       const updateColorScheme = () => {
-        document.documentElement.style.colorScheme = theme;
+        document.documentElement.style.colorScheme = theme ?? "light";
       };
 
       if (theme === "light") {
@@ -34,7 +34,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
         document.documentElement.classList.add("dark");
         updateColorScheme();
       }
-      window.localStorage.setItem("theme", theme);
+      window.localStorage.setItem("theme", theme ?? "light");
     </script>
   </head>
   <body class="h-full">
