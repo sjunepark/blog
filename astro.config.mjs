@@ -8,4 +8,13 @@ import svelte from "@astrojs/svelte";
 export default defineConfig({
   site: "https://sjunepark.com",
   integrations: [svelte(), mdx(), sitemap(), tailwind()],
+  markdown: {
+    syntaxHighlight: "shiki",
+    shikiConfig: {
+      themes: {
+        light: "light-plus",
+        dark: "dark-plus",
+      },
+    },
+  },
 });
