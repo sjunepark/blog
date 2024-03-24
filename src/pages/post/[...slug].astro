@@ -2,9 +2,10 @@
 import { getCollection } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
 
 export const getStaticPaths = (async () => {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("post");
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: post,
@@ -12,7 +13,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-// type Props = CollectionEntry<"blog">;
+// type Props = CollectionEntry<"post">;
 
 const post = Astro.props;
 const { pubDate, title } = post.data;
@@ -21,9 +22,7 @@ const { Content } = await post.render();
 
 <DefaultLayout>
   <!--todo: overwrite head-->
-  <article
-    class="prose prose-stone mx-auto w-full dark:prose-invert lg:prose-lg"
-  >
+  <ArticleLayout>
     <!-- Title -->
     <hgroup>
       <h1>{title}</h1>
@@ -38,5 +37,5 @@ const { Content } = await post.render();
     <div class="">
       <Content />
     </div>
-  </article>
+  </ArticleLayout>
 </DefaultLayout>

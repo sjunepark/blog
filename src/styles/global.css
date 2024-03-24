@@ -18,9 +18,9 @@
     --accent-foreground: 24 9.8% 10%;
     --destructive: 0 72.22% 50.59%;
     --destructive-foreground: 60 9.1% 97.8%;
-    --border: 20 5.9% 90%;
+    --border: 0 0% 90%;
     --input: 20 5.9% 90%;
-    --ring: 20 14.3% 4.1%;
+    --ring: 0 0% 9%;
     --radius: 0.5rem;
 
     /* prose pre tag */
@@ -52,9 +52,10 @@
     --accent-foreground: 60 9.1% 97.8%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 60 9.1% 97.8%;
-    --border: 12 6.5% 15.1%;
+    --border: 0 0% 25%;
+    /*--border: 0 0% 32%;*/
     --input: 12 6.5% 15.1%;
-    --ring: 35.5 91.7% 32.9%;
+    --ring: 0 0% 25%;
 
     /* Markdown code block */
     --code-highlight: 208 60% 24%;

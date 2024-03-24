@@ -15,7 +15,7 @@ const buttonVariants = tv({
         "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
       ghost: "hover:bg-accent hover:text-accent-foreground",
       link: "text-primary underline-offset-4 hover:underline",
-      icon: "rounded-full  shadow-md shadow-border ring-1 ring-border transition hover:bg-secondary/20",
+      icon: "rounded-full outline outline-1 outline-border hover:bg-muted shadow-md shadow-border",
     },
     size: {
       default: "h-9 px-4 py-2",
