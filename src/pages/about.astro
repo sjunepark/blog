@@ -1,5 +1,16 @@
 ---
+import ArticleLayout from "../layouts/ArticleLayout.astro";
+import DefaultLayout from "../layouts/DefaultLayout.astro";
 
+const email = "junepark202012@gmail.com";
 ---
 
-About
+<DefaultLayout>
+  <ArticleLayout>
+    <p>Hi, I'm a certified public accountant in South Korea.</p>
+    <p>I'm interested in web development and love Golang.</p>
+    <p>Feel free to contact me at <a href={`mailto:${email}`}>{email}</a></p>
+    <p>Hope you enjoy my content.</p>
+    <p>Thanks!</p>
+  </ArticleLayout>
+</DefaultLayout>

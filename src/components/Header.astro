@@ -21,7 +21,7 @@ const { pathname } = Astro.url;
         class="flex rounded-full px-3 font-medium shadow-md shadow-border ring-1 ring-border"
       >
         <li>
-          <HeaderLink href="/" {pathname} client:load>Home</HeaderLink>
+          <HeaderLink href="/about" {pathname} client:load>About</HeaderLink>
         </li>
         <li>
           <HeaderLink href="/post" {pathname} client:load>Posts</HeaderLink>
