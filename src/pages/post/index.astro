@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
-import ArticleCard from "../../components/posts/ArticleCard.astro";
+import ArticleCard from "../../components/post/ArticleCard.astro";
 
-const posts = (await getCollection("blog")).sort(
+const posts = (await getCollection("post")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
 );
 ---
