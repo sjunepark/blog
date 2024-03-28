@@ -15,7 +15,7 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 // type Props = CollectionEntry<"post">;
 
-const post = Astro.props;
+const post = Astro.props as Props;
 const { pubDate, title, description } = post.data;
 const { Content } = await post.render();
 ---
