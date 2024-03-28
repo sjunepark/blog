@@ -16,12 +16,11 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 // type Props = CollectionEntry<"post">;
 
 const post = Astro.props;
-const { pubDate, title } = post.data;
+const { pubDate, title, description } = post.data;
 const { Content } = await post.render();
 ---
 
-<DefaultLayout>
-  <!--todo: overwrite head-->
+<DefaultLayout {title} {description}>
   <ArticleLayout>
     <!-- Title -->
     <hgroup>
