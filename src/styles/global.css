@@ -81,6 +81,7 @@
 
   .prose pre.has-highlighted span.line.highlighted {
     width: calc(100% + 2 * var(--pre-padding-x));
+    padding: 0 var(--pre-padding-x);
     display: inline-block;
     background-color: hsl(var(--code-highlight) / 1);
     margin-left: calc(-1 * var(--pre-padding-x));
