@@ -24,9 +24,7 @@
     --radius: 0.5rem;
 
     /* prose pre tag */
-    /*--pre-padding-x: 0.75rem;*/
-    /*--pre-padding-x-lg: 1.5rem;*/
-    /*--pre-padding-y-lg: 0.14em;*/
+    --pre-padding-x: 0.75rem;
 
     /* Markdown code block */
     --code-highlight: 208 100% 88%;
@@ -63,7 +61,7 @@
 
   /* shiki theme */
 
-  html.dark pre.shiki {
+  html.dark pre.astro-code {
     color: var(--shiki-dark) !important;
     background-color: var(--shiki-dark-bg) !important;
     /* Optional, if you also want font styles */
@@ -72,36 +70,20 @@
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
 
-  html.dark .shiki span {
+  html.dark .astro-code span {
     color: var(--shiki-dark) !important;
     font-style: var(--shiki-dark-font-style) !important;
     font-weight: var(--shiki-dark-font-weight) !important;
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
 
-  .prose pre code span.line {
-    display: inline-block;
-    font-size: inherit;
-    line-height: inherit;
-  }
+  /*!* Highlight effects *!*/
 
-  /* Highlight effects */
-
-  .prose pre.has-highlighted span.highlighted {
+  .prose pre.has-highlighted span.line.highlighted {
     width: calc(100% + 2 * var(--pre-padding-x));
     display: inline-block;
     background-color: hsl(var(--code-highlight) / 1);
-    padding: 0 var(--pre-padding-x);
     margin-left: calc(-1 * var(--pre-padding-x));
-  }
-
-  @media (min-width: 1024px) {
-    .prose pre.has-highlighted span.highlighted {
-      width: calc(100% + 2 * var(--pre-padding-x-lg));
-      padding: var(--pre-padding-y-lg) var(--pre-padding-x-lg);
-      margin-top: calc(-2 * var(--pre-padding-y-lg));
-      margin-left: calc(-1 * var(--pre-padding-x-lg));
-    }
   }
 
   .prose .highlighted-word {
@@ -126,49 +108,31 @@
     color: rgba(115, 138, 148, 0.4);
   }
 
-  /* Line diff */
+  /*!* Line diff *!*/
+
+  .prose code .line.diff {
+    width: calc(100% + 2 * var(--pre-padding-x));
+    display: inline-block;
+    padding: 0 var(--pre-padding-x);
+    margin-left: calc(-1 * var(--pre-padding-x));
+  }
 
   .prose code .line.diff.add {
     background-color: hsla(160, 84%, 39%, 0.2);
-    width: calc(100% + 2 * var(--pre-padding-x));
-    display: inline-block;
-    padding: 0 0.75rem 0 0.75rem;
-    margin-left: -0.75rem;
   }
 
-  @media (min-width: 1024px) {
-    .prose code .line.diff.add {
-      width: calc(100% + 3rem);
-      padding: var(--pre-padding-y-lg) var(--pre-padding-x-lg);
-      margin-top: calc(-2 * var(--pre-padding-y-lg));
-      margin-left: -1.5rem;
-    }
+  .prose code .line.diff.remove {
+    background-color: hsla(0, 100%, 50%, 0.2);
   }
+
 
   .prose code .line.diff.add::before {
     content: "+";
     color: hsl(160, 84%, 39%);
   }
 
-  .prose code .line.diff.remove {
-    background-color: hsla(0, 100%, 50%, 0.2);
-    width: calc(100% + 1.5rem);
-    display: inline-block;
-    padding: 0 0.75rem 0 0.75rem;
-    margin-left: -0.75rem;
-  }
-
-  @media (min-width: 1024px) {
-    .prose code .line.diff.remove {
-      width: calc(100% + 3rem);
-      padding: 0.15em 1.5rem 0.15em 1.5rem;
-      margin-top: -0.3em;
-      margin-left: -1.5rem;
-    }
-  }
-
   .prose code .line.diff.remove::before {
     content: "-";
-    color: hsl(0, 100%, 50%);
+    color: hsl(0, 100%, 50%)
   }
 }
