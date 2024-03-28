@@ -1,6 +1,9 @@
 ---
-import { format } from "@formkit/tempo";
 import type { CollectionEntry } from "astro:content";
+
+import { Badge } from "@components/ui/badge";
+
+import { format } from "@formkit/tempo";
 
 interface Props {
   post: CollectionEntry<"post">;
@@ -8,7 +11,7 @@ interface Props {
 
 const { post } = Astro.props;
 const { data, slug } = post;
-const { title, description, pubDate } = data;
+const { title, description, pubDate, tags } = data;
 
 const maxLength = 200;
 
@@ -43,6 +46,9 @@ const getTimeTagDate = (date: Date) => {
         <span class="relative z-10">{title}</span>
       </a>
     </h2>
+    <div class="z-10 mt-2 flex flex-wrap gap-1.5">
+      {tags.sort().map((tag) => <Badge variant="secondary">{tag}</Badge>)}
+    </div>
     <time
       datetime={getTimeTagDate(pubDate)}
       class="relative z-10 order-first mb-3 flex items-center pl-3.5 text-sm text-secondary-foreground md:hidden"
