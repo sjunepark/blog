@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import { format } from "@formkit/tempo";
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("post");
@@ -23,10 +24,20 @@ const { Content } = await post.render();
 <DefaultLayout {title} {description}>
   <ArticleLayout>
     <!-- Title -->
-    <hgroup>
-      <h1>{title}</h1>
-      <p>Published at {pubDate}</p>
-    </hgroup>
+    <header class="not-prose flex flex-col">
+      <h1
+        class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl"
+      >
+        {title}
+      </h1>
+      <time
+        datetime={format(pubDate, "YYYY-MM-DD", "en")}
+        class="order-first flex items-center text-base text-muted-foreground"
+      >
+        <span class="h-4 w-0.5 rounded-full bg-accent-foreground"></span>
+        <span class="ml-3">{format(pubDate, "long")}</span>
+      </time>
+    </header>
 
     <!-- Tags -->
     <!--todo-->
