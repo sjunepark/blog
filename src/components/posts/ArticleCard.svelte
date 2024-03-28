@@ -1,45 +1,40 @@
----
-import type { CollectionEntry } from "astro:content";
+<script lang="ts">
+  import type { CollectionEntry } from "astro:content";
 
-import { Badge } from "@components/ui/badge";
+  import { Badge } from "@components/ui/badge";
 
-import { format } from "@formkit/tempo";
+  import { format } from "@formkit/tempo";
 
-interface Props {
-  post: CollectionEntry<"post">;
-}
+  export let post: CollectionEntry<"post">;
+  const { data, slug } = post;
+  const { title, description, pubDate, tags } = data;
 
-const { post } = Astro.props;
-const { data, slug } = post;
-const { title, description, pubDate, tags } = data;
+  const maxLength = 200;
 
-const maxLength = 200;
+  const formatDate = (date: Date) => {
+    const locale = "en";
+    return format(date, "MMMM D, YYYY", locale);
+  };
 
-const formatDate = (date: Date) => {
-  const locale = "en";
-  return format(date, "MMMM D, YYYY", locale);
-};
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return text.slice(0, maxLength) + "...";
+    }
+    return text;
+  };
 
-const truncateText = (text: string, maxLength: number) => {
-  if (text.length > maxLength) {
-    return text.slice(0, maxLength) + "...";
-  }
-  return text;
-};
-
-const getTimeTagDate = (date: Date) => {
-  return format(date, "YYYY-MM-DDTHH:mm:ss.SSSZ");
-};
----
+  const getTimeTagDate = (date: Date) => {
+    return format(date, "YYYY-MM-DDTHH:mm:ss.SSSZ");
+  };
+</script>
 
 <article class="md:grid md:grid-cols-4 md:items-baseline">
   <div class="group relative flex flex-col items-start md:col-span-3">
     <h2 class="text-lg font-medium tracking-tight">
       <div
         class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-accent opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 sm:rounded-lg"
-      >
-      </div>
-      <a href={`/post/${slug}`}>
+      ></div>
+      <a href={`/posts/${slug}`}>
         <span
           class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"
         ></span>
@@ -47,7 +42,9 @@ const getTimeTagDate = (date: Date) => {
       </a>
     </h2>
     <div class="z-10 mt-2 flex flex-wrap gap-1.5">
-      {tags.sort().map((tag) => <Badge variant="secondary">{tag}</Badge>)}
+      {#each tags as tag}
+        <Badge variant="secondary">{tag}</Badge>
+      {/each}
     </div>
     <time
       datetime={getTimeTagDate(pubDate)}
@@ -79,7 +76,8 @@ const getTimeTagDate = (date: Date) => {
           d="M6.75 5.75 9.25 8l-2.5 2.25"
           stroke-width="1.5"
           stroke-linecap="round"
-          stroke-linejoin="round"></path></svg
+          stroke-linejoin="round"
+        ></path></svg
       >
     </div>
   </div>
