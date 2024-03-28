@@ -84,6 +84,7 @@ const typographyStyles = {
       paddingRight: "0.75rem",
       paddingBottom: "0.75rem",
       paddingLeft: "0.75rem",
+      position: "relative",
     },
     code: {
       fontSize: "inherit",
