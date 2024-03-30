@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type CollectionEntry } from "astro:content";
+  import type { CollectionEntry } from "astro:content";
   import ArticleCard from "@components/posts/PostCard.svelte";
   import type { Tag as TagType } from "@lib/stores/tags.js";
   import { initAllTags, selectedTags } from "@lib/stores/tags.js";
