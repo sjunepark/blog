@@ -21,7 +21,9 @@
 <div class="mt-4 flex h-full flex-col md:border-l md:border-border md:pl-6">
   <div class="h-full max-w-3xl flex-1 flex-col space-y-16">
     {#each posts as post}
-      <ArticleCard {post} />
+      {#if $selectedTags.size === 0 || post.data.tags.some( (tag) => $selectedTags.has(tag), )}
+        <ArticleCard {post} />
+      {/if}
     {/each}
   </div>
 </div>
