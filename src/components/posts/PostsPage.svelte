@@ -9,18 +9,18 @@
   export let posts: CollectionEntry<"post">[];
 
   onMount(async () => {
-    initAllTags(posts);
-
     const currentUrl = new URL(window.location.href);
     const params = currentUrl.searchParams;
     const tag = params.get("tag") as TagType;
     if (tag) {
       selectedTags.select(tag);
     }
+
+    initAllTags(posts);
   });
 </script>
 
-<div class="mt-2 flex flex-wrap gap-1.5">
+<div class="mb-3 flex flex-wrap gap-1.5">
   <span>Tags: </span>
   {#each $selectedTags as tag}
     <Tag type="toggle" {tag} />

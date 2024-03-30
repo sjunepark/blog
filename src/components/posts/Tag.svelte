@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Badge } from "@components/ui/badge";
   import { selectedTags, type Tag } from "@lib/stores/tags.ts";
+  import { navigate } from "astro:transitions/client";
 
   let className: string | undefined | null = undefined;
   export { className as class };
@@ -9,7 +10,6 @@
   export let tag: Tag;
 
   const onclick = () => {
-    console.log("clicked");
     switch (type) {
       case "redirect":
         redirect();
@@ -25,7 +25,7 @@
       tag: tag,
     };
     const searchParams = new URLSearchParams(state);
-    window.location.href = `/posts?${searchParams.toString()}`;
+    navigate(`/posts?${searchParams.toString()}`);
   };
 </script>
 
