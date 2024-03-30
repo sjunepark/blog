@@ -4,7 +4,7 @@ import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
 
-import { Badge } from "@components/ui/badge";
+import Tag from "@components/posts/Tag.svelte";
 
 import { format } from "@formkit/tempo";
 
@@ -41,7 +41,7 @@ const { Content } = await post.render();
       </div>
     </header>
     <div class="flex flex-wrap gap-1.5">
-      {tags.sort().map((tag) => <Badge variant="secondary">{tag}</Badge>)}
+      {tags.sort().map((tag) => <Tag type="redirect" {tag} client:load />)}
     </div>
 
     <!-- Post -->

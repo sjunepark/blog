@@ -1,9 +1,8 @@
 <script lang="ts">
   import type { CollectionEntry } from "astro:content";
 
-  import { Badge } from "@components/ui/badge";
-
   import { format } from "@formkit/tempo";
+  import Tag from "@components/posts/Tag.svelte";
 
   export let post: CollectionEntry<"post">;
   const { data, slug } = post;
@@ -41,9 +40,9 @@
         <span class="relative z-10">{title}</span>
       </a>
     </h2>
-    <div class="z-10 mt-2 flex flex-wrap gap-1.5">
+    <div class="mt-2 flex flex-wrap gap-1.5">
       {#each tags as tag}
-        <Badge variant="secondary">{tag}</Badge>
+        <Tag type="toggle" {tag} class="z-30" />
       {/each}
     </div>
     <time

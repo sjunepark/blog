@@ -24,7 +24,6 @@
   $: if (isMounted) localStorage.setItem("theme", theme);
 
   const toggleMode = () => {
-    console.log("clicked, theme:", theme);
     theme = theme === "light" ? "dark" : "light";
     updateColorScheme();
   };
