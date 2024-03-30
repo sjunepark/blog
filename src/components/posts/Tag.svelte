@@ -21,11 +21,8 @@
   };
 
   const redirect = () => {
-    const state = {
-      tag: tag,
-    };
-    const searchParams = new URLSearchParams(state);
-    navigate(`/posts?${searchParams.toString()}`);
+    selectedTags.select(tag);
+    navigate(`/posts`);
   };
 </script>
 
