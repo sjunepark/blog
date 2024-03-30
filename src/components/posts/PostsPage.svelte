@@ -23,7 +23,7 @@
 <div class="mt-2 flex flex-wrap gap-1.5">
   <span>Tags: </span>
   {#each $selectedTags as tag}
-    <Tag type="redirect" {tag} />
+    <Tag type="toggle" {tag} />
   {/each}
 </div>
 <div class="mt-4 flex h-full flex-col md:border-l md:border-border md:pl-6">
