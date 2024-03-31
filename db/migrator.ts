@@ -12,7 +12,7 @@ export const migrator = new Migrator({
     path,
     migrationFolder: path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      "../migrations",
+      "./migrations",
     ),
   }),
 });
