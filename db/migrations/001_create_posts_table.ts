@@ -7,6 +7,7 @@ export async function up(db: Kysely<any>) {
     .createTable("posts")
     .addColumn("id", "integer", (col) => col.primaryKey())
     .addColumn("views", "integer", (col) => col.defaultTo(0))
+    .addColumn("likes", "integer", (col) => col.defaultTo(0))
     .execute();
 }
 
