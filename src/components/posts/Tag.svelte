@@ -7,22 +7,22 @@
   export { className as class };
 
   export let type: "redirect" | "toggle" | "none" = "none";
-  export let tag: Tag;
+  export let tag: Tag | "all";
 
   const onclick = () => {
+    if (tag === "all") {
+      return;
+    }
+
     switch (type) {
       case "redirect":
-        redirect();
+        selectedTags.select(tag);
+        navigate(`/posts`);
         break;
       case "toggle":
         selectedTags.toggle(tag);
         break;
     }
-  };
-
-  const redirect = () => {
-    selectedTags.select(tag);
-    navigate(`/posts`);
   };
 </script>
 
@@ -32,5 +32,5 @@
   clickable={true}
   on:click={onclick}
 >
-  {tag}
+  # {tag}
 </Badge>

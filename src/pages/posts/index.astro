@@ -2,13 +2,10 @@
 import { getCollection } from "astro:content";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import PostsPage from "@components/posts/PostsPage.svelte";
-import { initAllTags } from "../../lib/stores/tags";
 
 const posts = (await getCollection("post")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
 );
-
-initAllTags(posts);
 ---
 
 <DefaultLayout>
