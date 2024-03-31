@@ -13,7 +13,8 @@
     "check": "astro check",
     "mgup": "tsx db/migrate/up.ts",
     "mgdown": "tsx db/migrate/down.ts",
-    "mg": "tsx db/migrate/migrate.ts"
+    "mg": "tsx db/migrate/migrate.ts",
+    "introspect": "kysely-codegen"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
