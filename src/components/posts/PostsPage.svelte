@@ -13,20 +13,9 @@
     const selectedTagsArray = Array.from($selectedTags);
 
     return posts.filter((post) => {
-      const isIn = selectedTagsArray.every((tag) =>
-        post.data.tags.includes(tag),
-      );
-
-      console.log(post.data.tags);
-      console.log(selectedTagsArray);
-      console.log(isIn);
-
-      return isIn;
+      return selectedTagsArray.every((tag) => post.data.tags.includes(tag));
     });
   });
-
-  $: console.log("posts", posts);
-  $: console.log("selectedPosts", $selectedPosts);
 </script>
 
 <div class="mb-3 flex flex-wrap gap-1.5 py-2">

@@ -11,6 +11,12 @@ import {
 
 // https://astro.build/config
 export default defineConfig({
+  redirects: {
+    "/": {
+      status: 301,
+      destination: "/posts",
+    },
+  },
   site: "https://sjunepark.com",
   integrations: [svelte(), mdx(), sitemap(), tailwind()],
   markdown: {

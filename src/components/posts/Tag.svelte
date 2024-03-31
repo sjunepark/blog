@@ -26,11 +26,17 @@
   };
 </script>
 
-<Badge
-  variant="secondary"
-  class={className}
-  clickable={true}
-  on:click={onclick}
->
-  # {tag}
-</Badge>
+{#if type === "none"}
+  <Badge variant="secondary" class={className}>
+    # {tag}
+  </Badge>
+{:else}
+  <Badge
+    variant="secondary"
+    class={className}
+    clickable={true}
+    on:click={onclick}
+  >
+    # {tag}
+  </Badge>
+{/if}
