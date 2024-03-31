@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+
+import Tag from "@components/posts/Tag.svelte";
+
+import { format } from "@formkit/tempo";
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("post");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+// type Props = CollectionEntry<"post">;
+
+const post = Astro.props as Props;
+const { pubDate, updatedDate, title, description, tags } = post.data;
+const { Content } = await post.render();
+---
+
+<DefaultLayout {title} {description}>
+  <ArticleLayout>
+    <!-- Title -->
+    <header class="flex flex-col">
+      <h1 class="!mb-6">{title}</h1>
+      <div
+        class="order-first mb-3 flex flex-col items-start gap-1.5 border-l-2 pl-3 text-base text-muted-foreground"
+      >
+        <time datetime={format(pubDate, "YYYY-MM-DD", "en")} class="">
+          <span>Published: {format(pubDate, "long")}</span>
+        </time>
+        <time datetime={format(pubDate, "YYYY-MM-DD", "en")} class="">
+          <span>Last updated: {format(updatedDate, "long")}</span>
+        </time>
+      </div>
+    </header>
+    <div class="flex flex-wrap gap-1.5">
+      {tags.sort().map((tag) => <Tag type="redirect" {tag} client:load />)}
+    </div>
+
+    <!-- Post -->
+    <div class="">
+      <Content />
+    </div>
+  </ArticleLayout>
+</DefaultLayout>
