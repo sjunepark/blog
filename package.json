@@ -11,9 +11,10 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "check": "astro check",
-    "mgup": "tsx db/migrate/up.ts",
-    "mgdown": "tsx db/migrate/down.ts",
+    "mg-up": "tsx db/migrate/up.ts",
+    "mg-down": "tsx db/migrate/down.ts",
     "mg": "tsx db/migrate/migrate.ts",
+    "mg-reset": "tsx db/migrate/reset.ts",
     "introspect": "kysely-codegen"
   },
   "dependencies": {

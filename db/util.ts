@@ -5,21 +5,22 @@ export const logMigrationResultSet = (resultSet: MigrationResultSet) => {
 
   if (results === undefined || results.length === 0) {
     console.log("No migrations to execute");
-    return;
   }
 
   results?.forEach((it) => {
     switch (it.status) {
       case "Success":
         console.log(
-          `Migration "${it.migrationName}" was executed successfully`,
+          `Migration ${it.direction} "${it.migrationName}" was executed successfully`,
         );
         break;
       case "Error":
-        console.error(`Migration "${it.migrationName}" failed`);
+        console.error(`Migration ${it.direction} "${it.migrationName}" failed`);
         break;
       case "NotExecuted":
-        console.log(`Migration "${it.migrationName}" was not executed`);
+        console.log(
+          `Migration ${it.direction} "${it.migrationName}" was not executed`,
+        );
         break;
     }
   });
