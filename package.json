@@ -15,7 +15,7 @@
     "mg-down": "tsx db/migrate/down.ts",
     "mg": "tsx db/migrate/migrate.ts",
     "mg-reset": "tsx db/migrate/reset.ts",
-    "introspect": "kysely-codegen"
+    "introspect": "kysely-codegen --url=\"env(DATABASE_FULL_URL)\""
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
