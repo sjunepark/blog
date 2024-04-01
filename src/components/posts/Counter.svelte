@@ -1,23 +1,22 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { PostResponse } from "@pages/api/posts/[postId]";
+  import type { PostsGetResponse } from "@pages/api/posts/views/[postId].ts";
 
   export let postId: number;
 
   onMount(async () => {
-    console.log("Hi");
-    // const postData = (await fetch(`/api/posts/${postId}`, {
-    //   method: "GET",
-    // })
-    //   .then((res) => res.json())
-    //   .catch((err) => {
-    //     return { error: err.message };
-    //   })) as PostResponse;
-    //
-    // if (postData.error) {
-    //   console.error(postData.error);
-    //   return;
-    // }
+    const postData = (await fetch(`/api/posts/views/${postId}`, {
+      method: "POST",
+    })
+      .then((res) => res.json())
+      .catch((err) => {
+        console.error(err);
+      })) as PostsGetResponse;
+
+    if (postData.error) {
+      console.error(postData.error);
+      return;
+    }
   });
 </script>
 
