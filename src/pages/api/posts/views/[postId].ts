@@ -3,7 +3,7 @@ import type { APIRoute } from "astro";
 import type { Posts } from "kysely-codegen";
 import type { Selectable } from "kysely";
 
-import { db } from "@db/db.ts";
+import {db} from "@lib/db.ts";
 
 export const prerender = false;
 
