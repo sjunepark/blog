@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { PostsGetResponse } from "@pages/api/posts/views/[postId].ts";
+  import type { PostsPostResponse } from "@pages/api/posts/views/[postId].ts";
 
   export let postId: number;
 
@@ -11,7 +11,7 @@
       .then((res) => res.json())
       .catch((err) => {
         console.error(err);
-      })) as PostsGetResponse;
+      })) as PostsPostResponse;
 
     if (postData.error) {
       console.error(postData.error);
