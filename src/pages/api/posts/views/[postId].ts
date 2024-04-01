@@ -2,7 +2,6 @@ import { format } from "@formkit/tempo";
 import type { APIRoute } from "astro";
 import type { Posts } from "kysely-codegen";
 import type { Selectable } from "kysely";
-import crypto from "node:crypto";
 
 import { db } from "@db/db.ts";
 
@@ -130,8 +129,8 @@ export const POST: APIRoute<never, PostParams> = async ({
   const ip = clientAddress;
   const visitDate = format(new Date(), "YYYY-MM-DD", "en");
 
-  const userAgentHash = hash(userAgent);
-  const ipHash = hash(ip);
+  const userAgentHash = await hash(userAgent);
+  const ipHash = await hash(ip);
 
   const visitResult = await db
     .selectFrom("visits")
@@ -157,26 +156,37 @@ export const POST: APIRoute<never, PostParams> = async ({
     );
   }
 
-  const updateResult = await db.transaction().execute(async (trx) => {
-    const postIds = await trx
-      .insertInto("visits")
-      .values({
-        post_id: postId,
-        visitor_user_agent: userAgentHash,
-        visitor_ip_hash: ipHash,
-        visit_date: visitDate,
-      })
-      .returning("post_id")
-      .execute();
+  const insertResult = await db
+    .insertInto("visits")
+    .values({
+      post_id: postId,
+      visitor_user_agent: userAgentHash,
+      visitor_ip_hash: ipHash,
+      visit_date: visitDate,
+    })
+    .onConflict((oc) => oc.doNothing())
+    .executeTakeFirst();
 
-    return await trx
-      .updateTable("posts")
-      .set((eb) => ({
-        views: eb("views", "+", 1),
-      }))
-      .where("id", "=", postIds[0].post_id)
-      .executeTakeFirst();
-  });
+  if (insertResult.numInsertedOrUpdatedRows == BigInt(0)) {
+    return createPostResponse(
+      {
+        error: false,
+        message: "Visit already exists",
+        result: {
+          inserted: false,
+        },
+      },
+      200,
+    );
+  }
+
+  const updateResult = await db
+    .updateTable("posts")
+    .set((eb) => ({
+      views: eb("views", "+", 1),
+    }))
+    .where("id", "=", postId)
+    .executeTakeFirst();
 
   if (updateResult.numUpdatedRows == BigInt(0)) {
     return createPostResponse(
@@ -201,7 +211,15 @@ export const POST: APIRoute<never, PostParams> = async ({
     201,
   );
 
-  function hash(input: string) {
-    return crypto.createHash("sha256").update(input).digest("hex");
+  async function hash(input: string) {
+    const hashBuffer = crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(input),
+    );
+    const hashArray = Array.from(new Uint8Array(await hashBuffer));
+    const hashHex = hashArray
+      .map((byte) => byte.toString(16).padStart(2, "0"))
+      .join("");
+    return hashHex;
   }
 };
