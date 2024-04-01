@@ -20,5 +20,8 @@ export const populatePosts = async (posts: CollectionEntry<"post">[]) => {
     .onConflict((oc) => oc.doNothing())
     .execute();
 
-  console.log(`insert result ${result}`);
+  const numInsertedOrUpdatedRows = result[0].numInsertedOrUpdatedRows;
+  console.log(
+    `Inserted or updated ${numInsertedOrUpdatedRows} rows during post population`,
+  );
 };
