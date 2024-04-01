@@ -9,6 +9,8 @@ import {
   transformerNotationDiff,
 } from "@shikijs/transformers";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   redirects: {
@@ -31,6 +33,13 @@ export default defineConfig({
         transformerNotationWordHighlight(),
         transformerNotationDiff(),
       ],
+    },
+  },
+  output: "hybrid",
+  adapter: cloudflare(),
+  vite: {
+    build: {
+      minify: false,
     },
   },
 });

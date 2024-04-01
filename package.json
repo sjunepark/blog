@@ -16,10 +16,12 @@
     "mg-down": "tsx db/migrate/down.ts",
     "mg": "tsx db/migrate/migrate.ts",
     "mg-reset": "tsx db/migrate/reset.ts",
-    "introspect": "kysely-codegen --url=\"env(DATABASE_FULL_URL)\""
+    "introspect": "kysely-codegen --url=\"env(DATABASE_FULL_URL)\" --dialect=libsql",
+    "introspect-local": "kysely-codegen --url=\"env(DEV_DATABASE_URL)\" --dialect=libsql"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
+    "@astrojs/cloudflare": "^10.0.1",
     "@astrojs/mdx": "^2.2.2",
     "@astrojs/rss": "^4.0.5",
     "@astrojs/sitemap": "^3.1.2",
@@ -48,7 +50,6 @@
     "@types/eslint": "^8.56.6",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
-    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-astro": "^0.33.1",
