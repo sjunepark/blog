@@ -14,9 +14,11 @@
       })) as PostsPostResponse;
 
     if (postData.error) {
-      console.error(postData.error);
+      console.error(postData.message);
       return;
     }
+
+    console.log(`${postData.message}, inserted: ${postData.result.inserted}`);
   });
 </script>
 
