@@ -1,5 +1,6 @@
 # Cloudflare
 .wrangler
+.dev.vars
 
 # JetBrains IDE
 .idea/

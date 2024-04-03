@@ -6,12 +6,10 @@ import "dotenv/config";
 
 export const DB_URL =
   process.env.DEV_ENV === "true"
-    ? (process.env.DEV_DATABASE_URL as string)
-    : (process.env.DATABASE_URL as string);
+    ? (process.env.DEV_DB_URL as string)
+    : (process.env.DB_URL as string);
 export const DB_AUTH_TOKEN =
-  process.env.DEV_ENV === "true"
-    ? undefined
-    : process.env.DATABASE_AUTH_TOKEN;
+  process.env.DEV_ENV === "true" ? undefined : process.env.DB_AUTH_TOKEN;
 
 console.log("DEV_ENV", process.env.DEV_ENV);
 
