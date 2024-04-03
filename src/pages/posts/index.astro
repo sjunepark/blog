@@ -4,7 +4,7 @@ import DefaultLayout from "@layouts/DefaultLayout.astro";
 import PostsPage from "@components/posts/PostsPage.svelte";
 
 const posts = (await getCollection("post")).sort(
-  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf(),
+  (a, b) => b.data.pubDate - a.data.pubDate,
 );
 ---
 
