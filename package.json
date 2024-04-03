@@ -7,7 +7,7 @@
     "dev-db": "turso dev --db-file db/local/local.db",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "wrangler pages dev dist",
     "astro": "astro",
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
@@ -61,6 +61,7 @@
     "prettier-plugin-svelte": "^3.2.2",
     "prettier-plugin-tailwindcss": "^0.5.13",
     "svelte": "^4.2.12",
-    "tsx": "^4.7.1"
+    "tsx": "^4.7.1",
+    "wrangler": "^3.42.0"
   }
 }
