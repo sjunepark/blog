@@ -10,7 +10,16 @@ const post = defineCollection({
     // Transform string to Date object
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date(),
-    tags: z.array(z.enum(["golang", "testing", "astro", "state-management"])),
+    tags: z.array(
+      z.enum([
+        "golang",
+        "testing",
+        "astro",
+        "state-management",
+        "environment-variables",
+        "deployment",
+      ]),
+    ),
     published: z.boolean(),
   }),
 });

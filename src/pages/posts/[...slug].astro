@@ -9,11 +9,9 @@ import CountView from "@components/posts/CountView.svelte";
 import Tag from "@components/posts/Tag.svelte";
 
 import { format } from "@formkit/tempo";
-import { populatePosts } from "@lib/db";
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("post");
-  await populatePosts(posts);
 
   return posts.map((post) => ({
     params: { slug: post.slug },

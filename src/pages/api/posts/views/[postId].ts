@@ -2,8 +2,7 @@ import { format } from "@formkit/tempo";
 import type { APIRoute } from "astro";
 import type { Posts } from "kysely-codegen";
 import type { Selectable } from "kysely";
-
-import {db} from "@lib/db.ts";
+import { initDB } from "@lib/db.ts";
 
 export const prerender = false;
 
@@ -49,7 +48,8 @@ const createPostResponse = (
   });
 };
 
-export const GET: APIRoute<never, PostParams> = async ({ params }) => {
+export const GET: APIRoute<never, PostParams> = async ({ locals, params }) => {
+  const db = await initDB(locals.dbUrl, locals.dbAuthToken);
   const postIdParam = params.postId;
   if (!postIdParam) {
     return createGetResponse(
@@ -93,10 +93,13 @@ export const GET: APIRoute<never, PostParams> = async ({ params }) => {
 };
 
 export const POST: APIRoute<never, PostParams> = async ({
+  locals,
   request,
   params,
   clientAddress,
 }) => {
+  const db = await initDB(locals.dbUrl, locals.dbAuthToken);
+
   const postIdParam = params.postId;
   if (!postIdParam) {
     return createPostResponse(
