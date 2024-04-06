@@ -15,6 +15,7 @@ const post = defineCollection({
         "golang",
         "testing",
         "astro",
+        "cloudflare",
         "state-management",
         "environment-variables",
         "deployment",

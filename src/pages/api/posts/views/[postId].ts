@@ -1,7 +1,7 @@
 import { format } from "@formkit/tempo";
 import type { APIRoute } from "astro";
-import type { Posts } from "kysely-codegen";
-import type { Selectable } from "kysely";
+import type { DB, Posts } from "kysely-codegen";
+import type { Kysely, Selectable } from "kysely";
 import { initDB } from "@lib/db.ts";
 
 export const prerender = false;
@@ -49,7 +49,18 @@ const createPostResponse = (
 };
 
 export const GET: APIRoute<never, PostParams> = async ({ locals, params }) => {
-  const db = await initDB(locals.dbUrl, locals.dbAuthToken);
+  let db: Kysely<DB>;
+  try {
+    db = await initDB(locals.dbUrl, locals.dbAuthToken);
+  } catch (error) {
+    return createGetResponse(
+      {
+        error: "Database connection failed",
+      },
+      500,
+    );
+  }
+
   const postIdParam = params.postId;
   if (!postIdParam) {
     return createGetResponse(
@@ -76,11 +87,30 @@ export const GET: APIRoute<never, PostParams> = async ({ locals, params }) => {
     .selectAll()
     .executeTakeFirst()) as Post;
   if (!result) {
+    const insertResult = await db
+      .insertInto("posts")
+      .values({ id: postId })
+      .onConflict((oc) => oc.doNothing())
+      .execute();
+
+    if (insertResult[0].numInsertedOrUpdatedRows == BigInt(0)) {
+      return createGetResponse(
+        {
+          error: "Insert failed when creating post",
+        },
+        500,
+      );
+    }
+
     return createGetResponse(
       {
-        error: "Post not found",
+        result: {
+          id: postId,
+          views: 0,
+          likes: 0,
+        },
       },
-      404,
+      200,
     );
   }
 
@@ -98,7 +128,17 @@ export const POST: APIRoute<never, PostParams> = async ({
   params,
   clientAddress,
 }) => {
-  const db = await initDB(locals.dbUrl, locals.dbAuthToken);
+  let db: Kysely<DB>;
+  try {
+    db = await initDB(locals.dbUrl, locals.dbAuthToken);
+  } catch (error) {
+    return createGetResponse(
+      {
+        error: "Database connection failed",
+      },
+      500,
+    );
+  }
 
   const postIdParam = params.postId;
   if (!postIdParam) {
@@ -220,9 +260,6 @@ export const POST: APIRoute<never, PostParams> = async ({
       new TextEncoder().encode(input),
     );
     const hashArray = Array.from(new Uint8Array(await hashBuffer));
-    const hashHex = hashArray
-      .map((byte) => byte.toString(16).padStart(2, "0"))
-      .join("");
-    return hashHex;
+    return hashArray.map((byte) => byte.toString(16).padStart(2, "0")).join("");
   }
 };
