@@ -1,11 +1,9 @@
 ---
-import { getCollection } from "astro:content";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import PostsPage from "@components/posts/PostsPage.svelte";
+import { getPublishedAndSortedPosts } from "@lib/utils/posts";
 
-const posts = (await getCollection("post")).sort(
-  (a, b) => b.data.pubDate - a.data.pubDate,
-);
+const posts = await getPublishedAndSortedPosts();
 ---
 
 <DefaultLayout>
