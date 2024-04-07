@@ -51,7 +51,7 @@ const createPostResponse = (
 export const GET: APIRoute<never, PostParams> = async ({ locals, params }) => {
   let db: Kysely<DB>;
   try {
-    db = await initDB(locals.dbUrl, locals.dbAuthToken);
+    db = await initDB(locals.DB_URL, locals.DB_AUTH_TOKEN);
   } catch (error) {
     return createGetResponse(
       {
@@ -130,7 +130,7 @@ export const POST: APIRoute<never, PostParams> = async ({
 }) => {
   let db: Kysely<DB>;
   try {
-    db = await initDB(locals.dbUrl, locals.dbAuthToken);
+    db = await initDB(locals.DB_URL, locals.DB_AUTH_TOKEN);
   } catch (error) {
     return createGetResponse(
       {
